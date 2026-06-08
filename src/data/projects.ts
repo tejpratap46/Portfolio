@@ -87,4 +87,14 @@ export const aiExperiments = [
     description: "A web camera for your laptop",
     link: "https://camera.tejpratapsingh.com",
   },
+  {
+    name: "SDUI Preview (Chromium Only)",
+    description: "Render a preview for SDUI for Android Motion Lib",
+    link: "https://sdui.tejpratapsingh.com",
+  },
+  {
+    name: "ITunes Explorer",
+    description: "A web UI to explore ITunes API",
+    link: "https://itunes.tejpratapsingh.com",
+  },
 ];
