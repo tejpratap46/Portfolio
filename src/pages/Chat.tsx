@@ -1,5 +1,15 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, User, Bot, Loader2, ArrowLeft } from "lucide-react";
+import {
+  Send,
+  User,
+  Bot,
+  Loader2,
+  ArrowLeft,
+  Volume2,
+  Square,
+  Copy,
+  Check,
+} from "lucide-react";
 import { Link } from "react-router";
 import Navigation from "../sections/Navigation";
 
@@ -24,6 +34,8 @@ export default function Chat() {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [playingIndex, setPlayingIndex] = useState<number | null>(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,6 +43,38 @@ export default function Chat() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
+
+  useEffect(() => {
+    return () => {
+      window.speechSynthesis.cancel();
+    };
+  }, []);
+
+  const togglePlay = (text: string, index: number) => {
+    if (playingIndex === index) {
+      window.speechSynthesis.cancel();
+      setPlayingIndex(null);
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.onend = () => setPlayingIndex(null);
+    utterance.onerror = () => setPlayingIndex(null);
+
+    setPlayingIndex(index);
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const copyToClipboard = async (text: string, index: number) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
 
   const sendMessage = async (e?: React.FormEvent, customMessage?: string) => {
     e?.preventDefault();
@@ -130,13 +174,57 @@ export default function Chat() {
               </div>
 
               <div
-                className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                className={`relative group max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                   msg.role === "user"
                     ? "bg-black text-white dark:bg-white dark:text-black"
                     : "bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5"
                 }`}
               >
-                {msg.content}
+                <div>{msg.content}</div>
+                {msg.role !== "user" && (
+                  <div className="flex items-center gap-2 mt-3">
+                    <button
+                      onClick={() => togglePlay(msg.content, index)}
+                      className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-medium transition-all border ${
+                        playingIndex === index
+                          ? "bg-black text-white border-black dark:bg-white dark:text-black dark:border-white"
+                          : "bg-black/5 text-black/60 border-black/5 hover:bg-black/10 dark:bg-white/5 dark:text-white/60 dark:border-white/5 dark:hover:bg-white/10"
+                      }`}
+                    >
+                      {playingIndex === index ? (
+                        <>
+                          <Square className="w-2.5 h-2.5 fill-current" />
+                          <span>Stop</span>
+                        </>
+                      ) : (
+                        <>
+                          <Volume2 className="w-3 h-3" />
+                          <span>Listen</span>
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => copyToClipboard(msg.content, index)}
+                      className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-medium transition-all border ${
+                        copiedIndex === index
+                          ? "bg-green-500/10 text-green-600 border-green-500/20 dark:text-green-400 dark:border-green-500/30"
+                          : "bg-black/5 text-black/60 border-black/5 hover:bg-black/10 dark:bg-white/5 dark:text-white/60 dark:border-white/5 dark:hover:bg-white/10"
+                      }`}
+                    >
+                      {copiedIndex === index ? (
+                        <>
+                          <Check className="w-3 h-3" />
+                          <span>Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3 h-3" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           ))}
