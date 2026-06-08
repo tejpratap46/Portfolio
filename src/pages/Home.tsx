@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useLocation } from "react-router";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -17,6 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const lenisRef = useRef<Lenis | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     // Initialize Lenis smooth scroll
@@ -36,6 +38,13 @@ export default function Home() {
     });
 
     gsap.ticker.lagSmoothing(0);
+
+    // Handle scroll to hash on mount
+    if (location.hash) {
+      setTimeout(() => {
+        lenisRef.current?.scrollTo(location.hash, { immediate: true });
+      }, 100);
+    }
 
     return () => {
       lenisRef.current?.destroy();

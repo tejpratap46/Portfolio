@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { profile } from "@/data";
+import { Link } from "react-router";
+import { MessageCircle } from "lucide-react";
 
 export default function Hero() {
   const tagRef = useRef<HTMLParagraphElement>(null);
@@ -157,8 +159,21 @@ export default function Hero() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              {/* Status dot */}
-              <div className="absolute bottom-3 right-3 w-5 h-5 rounded-full bg-emerald-500 border-4 border-white dark:border-[#0a0a0a] transition-colors duration-300" />
+              {/* Chat Toggle */}
+              <Link
+                to="/chat"
+                className="absolute bottom-2 -right-12 sm:-right-16 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black dark:bg-white text-white dark:text-black text-sm font-medium hover:bg-black/80 dark:hover:bg-white/90 transition-all shadow-xl z-20 group whitespace-nowrap"
+                aria-label="Chat with AI"
+              >
+                <div className="relative flex items-center justify-center">
+                  <MessageCircle className="w-4 h-4 transition-colors" />
+                  <span className="absolute -top-1.5 -right-1.5 flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                </div>
+                <span>Ask AI</span>
+              </Link>
             </div>
           </div>
         </div>
