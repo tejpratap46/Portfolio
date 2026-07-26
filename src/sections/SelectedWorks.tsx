@@ -156,60 +156,68 @@ export default function SelectedWorks() {
         </div>
 
         {/* Side Projects + AI */}
-        <div className="grid lg:grid-cols-2 gap-16">
-          <div>
-            <h3 className="text-lg font-medium text-black/60 dark:text-white/60 mb-6 flex items-center gap-2 transition-colors duration-300">
-              <Wrench className="w-5 h-5" />
-              Side Projects
-            </h3>
-            <div className="space-y-0">
-              {sideProjects.map((p) => (
-                <a
-                  key={p.name}
-                  href={p.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between py-4 border-b border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 hover:pl-2 transition-all duration-300"
-                >
-                  <div>
-                    <p className="font-medium text-black dark:text-white group-hover:text-[#2d62ff] transition-colors">
-                      {p.name}
-                    </p>
-                    <p className="text-sm text-black/50 dark:text-white/50 transition-colors">
-                      {p.description}
-                    </p>
-                  </div>
-                  <ExternalLink className="w-4 h-4 text-black/20 dark:text-white/20 group-hover:text-[#2d62ff] transition-colors shrink-0 ml-4" />
-                </a>
-              ))}
+        <div className="overflow-x-auto scrollbar-hide -mx-5 px-5 sm:-mx-8 sm:px-8">
+          <div className="flex gap-16 min-w-max">
+            <div className="w-[280px] sm:w-[320px] md:w-[360px] shrink-0">
+              <h3 className="text-lg font-medium text-black/60 dark:text-white/60 mb-6 flex items-center gap-2 transition-colors duration-300">
+                <Wrench className="w-5 h-5" />
+                Side Projects
+              </h3>
+              <div className="grid grid-flow-col grid-rows-4 gap-x-8">
+                {sideProjects.map((p) => (
+                  <a
+                    key={p.name}
+                    href={p.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-start gap-3 py-4 border-b border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 hover:pl-2 transition-all duration-300 w-[280px] sm:w-[320px] md:w-[360px]"
+                  >
+                    {p.icon && (
+                      <p.icon className="w-5 h-5 text-black/35 dark:text-white/35 group-hover:text-[#2d62ff] transition-colors shrink-0 mt-0.5" />
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-black dark:text-white group-hover:text-[#2d62ff] transition-colors">
+                        {p.name}
+                      </p>
+                      <p className="text-sm text-black/50 dark:text-white/50 transition-colors">
+                        {p.description}
+                      </p>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-black/20 dark:text-white/20 group-hover:text-[#2d62ff] transition-colors shrink-0 ml-4 mt-0.5" />
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div>
-            <h3 className="text-lg font-medium text-black/60 dark:text-white/60 mb-6 flex items-center gap-2 transition-colors duration-300">
-              <Sparkles className="w-5 h-5" />
-              AI Experiments
-            </h3>
-            <div className="space-y-0">
-              {aiExperiments.map((p) => (
-                <a
-                  key={p.name}
-                  href={p.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-between py-4 border-b border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 hover:pl-2 transition-all duration-300"
-                >
-                  <div>
-                    <p className="font-medium text-black dark:text-white group-hover:text-[#2d62ff] transition-colors">
-                      {p.name}
-                    </p>
-                    <p className="text-sm text-black/50 dark:text-white/50 transition-colors">
-                      {p.description}
-                    </p>
-                  </div>
-                  <ExternalLink className="w-4 h-4 text-black/20 dark:text-white/20 group-hover:text-[#2d62ff] transition-colors shrink-0 ml-4" />
-                </a>
-              ))}
+            <div className="shrink-0">
+              <h3 className="text-lg font-medium text-black/60 dark:text-white/60 mb-6 flex items-center gap-2 transition-colors duration-300">
+                <Sparkles className="w-5 h-5" />
+                AI Experiments
+              </h3>
+              <div className="grid grid-flow-col grid-rows-4 gap-x-8">
+                {aiExperiments.map((p) => (
+                  <a
+                    key={p.name}
+                    href={p.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-start gap-3 py-4 border-b border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 hover:pl-2 transition-all duration-300 w-[280px] sm:w-[320px] md:w-[360px]"
+                  >
+                    {p.icon && (
+                      <p.icon className="w-5 h-5 text-black/35 dark:text-white/35 group-hover:text-[#2d62ff] transition-colors shrink-0 mt-0.5" />
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-black dark:text-white group-hover:text-[#2d62ff] transition-colors">
+                        {p.name}
+                      </p>
+                      <p className="text-sm text-black/50 dark:text-white/50 transition-colors">
+                        {p.description}
+                      </p>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-black/20 dark:text-white/20 group-hover:text-[#2d62ff] transition-colors shrink-0 ml-4 mt-0.5" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

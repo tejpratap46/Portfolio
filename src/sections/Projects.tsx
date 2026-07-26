@@ -116,6 +116,7 @@ export default function Projects() {
                 transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                 className="group rounded-2xl bg-white/[0.02] border border-white/5 p-6 hover:border-amber-500/20 hover:bg-amber-500/[0.02] transition-all"
               >
+                {project.icon && <project.icon className="w-6 h-6 text-amber-400 mb-4" />}
                 <h4 className="text-base font-semibold text-white group-hover:text-amber-400 transition-colors mb-2">
                   {project.name}
                 </h4>
@@ -148,6 +149,7 @@ export default function Projects() {
                 transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
                 className="group rounded-2xl bg-white/[0.02] border border-white/5 p-6 hover:border-amber-500/20 hover:bg-amber-500/[0.02] transition-all"
               >
+                {project.icon && <project.icon className="w-6 h-6 text-amber-400 mb-4" />}
                 <h4 className="text-base font-semibold text-white group-hover:text-amber-400 transition-colors mb-2">
                   {project.name}
                 </h4>
