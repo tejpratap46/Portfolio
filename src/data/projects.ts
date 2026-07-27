@@ -109,16 +109,22 @@ export const aiExperiments: ProjectItem[] = [
     icon: FileText,
   },
   {
-    name: "Json Viewer",
-    description: "View JSON in mac os finder",
-    link: "https://json.tejpratapsingh.com",
-    icon: Braces,
-  },
-  {
     name: "Camera",
     description: "A web camera for your laptop",
     link: "https://camera.tejpratapsingh.com",
     icon: Camera,
+  },
+  {
+    name: "PDF Reader",
+    description: "Read PDFs with ease",
+    link: "https://pdf.tejpratapsingh.com",
+    icon: FileText,
+  },
+  {
+    name: "Json Viewer",
+    description: "View JSON in mac os finder",
+    link: "https://json.tejpratapsingh.com",
+    icon: Braces,
   },
   {
     name: "Log Viewer",
