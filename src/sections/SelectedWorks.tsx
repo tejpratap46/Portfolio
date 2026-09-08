@@ -156,7 +156,7 @@ export default function SelectedWorks() {
         </div>
 
         {/* Side Projects + AI */}
-        <div className="overflow-x-auto scrollbar-hide -mx-5 px-5 sm:-mx-8 sm:px-8">
+        <div className="overflow-x-auto scrollbar-hide -mx-5 px-5 sm:-mx-8 sm:px-8 xl:mx-[calc(50%-50vw)] xl:px-[calc(50vw-50%)]">
           <div className="flex gap-16 min-w-max">
             <div className="w-[280px] sm:w-[320px] md:w-[360px] shrink-0">
               <h3 className="text-lg font-medium text-black/60 dark:text-white/60 mb-6 flex items-center gap-2 transition-colors duration-300">

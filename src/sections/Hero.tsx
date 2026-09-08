@@ -162,7 +162,7 @@ export default function Hero() {
               {/* Chat Toggle */}
               <Link
                 to="/chat"
-                className="absolute bottom-2 -right-12 sm:-right-16 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black dark:bg-white text-white dark:text-black text-sm font-medium hover:bg-black/80 dark:hover:bg-white/90 transition-all shadow-xl z-20 group whitespace-nowrap"
+                className="absolute bottom-2 -right-4 sm:-right-8 lg:-right-12 inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-black dark:bg-white text-white dark:text-black text-xs sm:text-sm font-medium hover:bg-black/80 dark:hover:bg-white/90 transition-all shadow-xl z-20 group whitespace-nowrap"
                 aria-label="Chat with AI"
               >
                 <div className="relative flex items-center justify-center">
