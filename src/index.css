@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Geist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,66 +6,283 @@
 
 @layer base {
   :root {
-    --background: 0 0% 97.6%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --page: #ffffff;
+    --ink: #171717;
+    --copy: #525252;
+    --copy-muted: #737373;
+    --line: #e5e5e5;
+    --line-strong: #a3a3a3;
+    --card-surface: #fafafa;
+    --card-hover-surface: #f4f4f5;
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --card-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --card-radius: 14px;
+    --accent-dot: #10b981;
+
+    /* shadcn mappings */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 224 100% 59%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 94%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 94%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 0 0% 94%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 84.2% 60.2%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 0% / 0.1;
-    --input: 0 0% 0% / 0.1;
-    --ring: 224 100% 59%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 9%;
     --radius: 0.5rem;
   }
 
+  :root[data-theme="dark"],
   .dark {
-    --background: 0 0% 5%;
+    --page: #0a0a0a;
+    --ink: #f5f5f5;
+    --copy: #a3a3a3;
+    --copy-muted: #737373;
+    --line: #222222;
+    --line-strong: #404040;
+    --card-surface: #121212;
+    --card-hover-surface: #18181b;
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --card-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    --accent-dot: #34d399;
+
+    /* shadcn mappings */
+    --background: 0 0% 4%;
     --foreground: 0 0% 96%;
-    --card: 0 0% 8%;
+    --card: 0 0% 7%;
     --card-foreground: 0 0% 96%;
-    --popover: 0 0% 8%;
+    --popover: 0 0% 7%;
     --popover-foreground: 0 0% 96%;
-    --primary: 224 100% 59%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 14%;
+    --primary: 0 0% 96%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 96%;
-    --muted: 0 0% 14%;
+    --muted: 0 0% 12%;
     --muted-foreground: 0 0% 55%;
-    --accent: 0 0% 14%;
+    --accent: 0 0% 12%;
     --accent-foreground: 0 0% 96%;
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 100% / 0.08;
-    --input: 0 0% 100% / 0.08;
-    --ring: 224 100% 59%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 80%;
+  }
+
+  :root[data-theme="tech"] {
+    --page: #0000ff;
+    --ink: #ffffff;
+    --copy: #ffffff;
+    --copy-muted: #bfdbfe;
+    --line: #ffffff;
+    --line-strong: #ffffff;
+    --card-surface: #0000d6;
+    --card-hover-surface: #0000aa;
+    --card-shadow: 4px 4px 0px #ffffff;
+    --card-hover-shadow: 2px 2px 0px #ffffff;
+    --accent-dot: #ffffff;
+
+    --background: 240 100% 50%;
+    --foreground: 0 0% 100%;
+    --card: 240 100% 42%;
+    --card-foreground: 0 0% 100%;
+    --popover: 240 100% 42%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 240 100% 50%;
+    --secondary: 240 100% 35%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 100% 35%;
+    --muted-foreground: 0 0% 90%;
+    --accent: 240 100% 35%;
+    --accent-foreground: 0 0% 100%;
+    --border: 0 0% 100%;
+    --input: 0 0% 100%;
+    --ring: 0 0% 100%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: var(--line);
+    box-sizing: border-box;
   }
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
+    background-color: var(--page);
+    color: var(--ink);
   }
   body {
-    @apply bg-background text-foreground antialiased transition-colors duration-300;
-    font-family: 'Inter', 'Geist', system-ui, -apple-system, sans-serif;
-    overflow-x: hidden;
+    background-color: var(--page);
+    color: var(--copy);
+    font-family: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', 'Geist', system-ui, -apple-system, sans-serif;
-    @apply font-normal tracking-tight;
+    color: var(--ink);
+    font-family: 'Geist', 'Geist Fallback', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.025em;
+    font-weight: 500;
+  }
+}
+
+/* plud.net Editorial Typography & Component Utilities */
+.page-column {
+  width: 100%;
+  max-width: 53.75rem; /* ~860px */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .page-column {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.text-ink {
+  color: var(--ink);
+}
+
+.text-copy {
+  color: var(--copy);
+}
+
+.text-copy-muted {
+  color: var(--copy-muted);
+}
+
+.bg-page {
+  background-color: var(--page);
+}
+
+.bg-card-surface {
+  background-color: var(--card-surface);
+}
+
+.border-line {
+  border-color: var(--line);
+}
+
+/* plud.net Link Underline Style */
+.editorial-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+  transition: all 0.15s ease;
+}
+
+.editorial-link:hover {
+  text-decoration-color: var(--ink);
+}
+
+/* plud.net Work Item Slot */
+.work-item-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.work-item-media {
+  position: relative;
+  border-radius: var(--card-radius);
+  background: var(--card-surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+.work-item-media:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--line-strong);
+}
+
+/* plud.net Project Tile (Side projects) */
+.project-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem;
+  min-height: 8.5rem;
+  border-radius: var(--card-radius);
+  background: var(--card-surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--card-shadow);
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-tile:hover {
+  background: var(--card-hover-surface);
+  transform: translateY(-2px);
+  box-shadow: var(--card-hover-shadow);
+  border-color: var(--line-strong);
+}
+
+.project-tile:hover .project-arrow {
+  color: var(--ink);
+  transform: translate(2px, -2px);
+}
+
+.project-arrow {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Pulsing Availability Dot */
+.availability-dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-dot);
+}
+
+.availability-dot::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: inherit;
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
   }
 }
 
@@ -74,8 +291,9 @@
     display: none;
   }
   .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
+
 

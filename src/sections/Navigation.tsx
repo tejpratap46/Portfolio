@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "../hooks/useTheme";
-import { Sun, Moon, Menu } from "lucide-react";
+import { Sun, Moon, Terminal, Menu } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router";
 import {
   Sheet,
@@ -10,175 +10,179 @@ import {
 } from "../components/ui/sheet";
 
 const navLinks = [
-  { href: "/#projects", label: "Projects" },
-  { href: "/#about", label: "About" },
+  { href: "/#work", label: "Work" },
+  { href: "/#side-projects", label: "Side projects" },
+  { href: "/#experience", label: "Experience" },
   { href: "/#stack", label: "Stack" },
-  { href: "/#contact", label: "Contact" },
   { href: "/chat", label: "AI Chat" },
 ];
-
-function TextSlideLink({
-  href,
-  label,
-  onClick,
-}: {
-  href: string;
-  label: string;
-  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
-}) {
-  const isExternal = !href.startsWith("/#");
-
-  if (isExternal) {
-    return (
-      <Link
-        to={href}
-        className="group relative overflow-hidden inline-block h-[1.4em] leading-[1.4em]"
-      >
-        <span className="block transition-transform duration-300 ease-in-out group-hover:-translate-y-full text-black/60 dark:text-white/60">
-          {label}
-        </span>
-        <span className="absolute top-full left-0 block transition-transform duration-300 ease-in-out group-hover:-translate-y-full font-medium text-black dark:text-white">
-          {label}
-        </span>
-      </Link>
-    );
-  }
-
-  return (
-    <a
-      href={href}
-      onClick={onClick}
-      className="group relative overflow-hidden inline-block h-[1.4em] leading-[1.4em]"
-    >
-      <span className="block transition-transform duration-300 ease-in-out group-hover:-translate-y-full text-black/60 dark:text-white/60">
-        {label}
-      </span>
-      <span className="absolute top-full left-0 block transition-transform duration-300 ease-in-out group-hover:-translate-y-full font-medium text-black dark:text-white">
-        {label}
-      </span>
-    </a>
-  );
-}
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const href = e.currentTarget.getAttribute("href");
-    if (!href) return;
-
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     setIsOpen(false);
-
     if (href.startsWith("/#")) {
       e.preventDefault();
-      const targetId = href.substring(1); // e.g. "#projects"
-
+      const targetId = href.substring(1);
       if (location.pathname !== "/") {
         navigate(href);
       } else {
-        // Use the global lenis instance attached to window in Home.tsx
-        const lenis = (window as any).lenis;
-        if (lenis) {
-          lenis.scrollTo(targetId);
-        } else {
-          // Fallback if lenis is not found
-          document
-            .querySelector(targetId)
-            ?.scrollIntoView({ behavior: "smooth" });
+        const el = document.querySelector(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
         }
       }
     }
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 h-20 px-5 sm:px-8 flex items-center justify-between transition-all duration-500 ${
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? "bg-[#f9f9f9]/80 dark:bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-black/5 dark:border-white/5"
-          : "bg-transparent"
+          ? "bg-[var(--page)]/90 backdrop-blur-md border-b border-line py-3.5 shadow-xs"
+          : "bg-transparent py-5"
       }`}
     >
-      <Link
-        to="/#hero"
-        onClick={(e) => {
-          if (location.pathname === "/") {
-            e.preventDefault();
-            const lenis = (window as any).lenis;
-            if (lenis) lenis.scrollTo("#hero");
-          }
-        }}
-        className="text-base font-medium tracking-tight text-black dark:text-white transition-colors duration-300"
-      >
-        Tej Pratap Singh
-      </Link>
-
-      <div className="flex items-center gap-8">
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <TextSlideLink
-              key={link.href}
-              href={link.href}
-              label={link.label}
-              onClick={handleLinkClick}
-            />
-          ))}
-        </div>
-
-        <div className="md:hidden">
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <button
-                className="p-2 -mr-2 text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white transition-colors"
-                aria-label="Open menu"
-              >
-                <Menu className="w-6 h-6" />
-              </button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="w-[300px] sm:w-[400px] bg-[#f9f9f9] dark:bg-[#0a0a0a] border-l border-black/5 dark:border-white/5 p-8"
-            >
-              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex flex-col gap-8 mt-12">
-                {navLinks.map((link) => (
-                  <div key={link.href} className="text-2xl">
-                    <TextSlideLink
-                      href={link.href}
-                      label={link.label}
-                      onClick={handleLinkClick}
-                    />
-                  </div>
-                ))}
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-
-        {/* Theme Toggle */}
-        <button
-          onClick={toggleTheme}
-          className="p-2.5 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition-all duration-300"
-          aria-label="Toggle theme"
+      <div className="page-column flex items-center justify-between">
+        {/* Logo / Name */}
+        <Link
+          to="/"
+          className="text-sm font-semibold tracking-tight text-ink hover:opacity-80 transition-opacity flex items-center gap-2"
         >
-          {theme === "light" ? (
-            <Moon className="w-4 h-4 text-black/70" />
-          ) : (
-            <Sun className="w-4 h-4 text-white/70" />
-          )}
-        </button>
+          <span className="w-2 h-2 rounded-full bg-ink inline-block" />
+          <span>Tej Pratap Singh</span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div className="flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-5 text-xs font-medium">
+            {navLinks.map((link) => {
+              const isExternal = !link.href.startsWith("/#");
+              if (isExternal) {
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className="text-copy hover:text-ink transition-colors px-1 py-0.5"
+                  >
+                    {link.label}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(e, link.href)}
+                  className="text-copy hover:text-ink transition-colors px-1 py-0.5"
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Theme Switcher Segmented Control */}
+          <div className="flex items-center p-0.5 rounded-full border border-line bg-[var(--card-surface)]">
+            <button
+              onClick={() => setTheme("light")}
+              title="Light theme"
+              className={`p-1.5 rounded-full transition-all ${
+                theme === "light"
+                  ? "bg-page text-ink shadow-xs"
+                  : "text-copy-muted hover:text-ink"
+              }`}
+            >
+              <Sun className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => setTheme("dark")}
+              title="Dark theme"
+              className={`p-1.5 rounded-full transition-all ${
+                theme === "dark"
+                  ? "bg-page text-ink shadow-xs"
+                  : "text-copy-muted hover:text-ink"
+              }`}
+            >
+              <Moon className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => setTheme("tech")}
+              title="Tech theme"
+              className={`p-1.5 rounded-full transition-all ${
+                theme === "tech"
+                  ? "bg-page text-ink shadow-xs"
+                  : "text-copy-muted hover:text-ink"
+              }`}
+            >
+              <Terminal className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Mobile Menu Trigger */}
+          <div className="md:hidden">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <button
+                  className="p-1.5 text-copy hover:text-ink transition-colors"
+                  aria-label="Open menu"
+                >
+                  <Menu className="w-5 h-5" />
+                </button>
+              </SheetTrigger>
+              <SheetContent
+                side="right"
+                className="w-[280px] bg-page border-l border-line p-6"
+              >
+                <SheetTitle className="text-sm font-semibold text-ink mb-6">
+                  Navigation
+                </SheetTitle>
+                <div className="flex flex-col gap-4">
+                  {navLinks.map((link) => {
+                    const isExternal = !link.href.startsWith("/#");
+                    if (isExternal) {
+                      return (
+                        <Link
+                          key={link.href}
+                          to={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="text-base font-medium text-copy hover:text-ink transition-colors"
+                        >
+                          {link.label}
+                        </Link>
+                      );
+                    }
+                    return (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        onClick={(e) => handleLinkClick(e, link.href)}
+                        className="text-base font-medium text-copy hover:text-ink transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    );
+                  })}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
       </div>
-    </nav>
+    </header>
   );
 }
+

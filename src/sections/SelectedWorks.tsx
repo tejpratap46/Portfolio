@@ -1,226 +1,133 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ExternalLink, Github, Globe, Sparkles, Wrench } from "lucide-react";
-import {
-  productProjects,
-  openSourceProjects,
-  sideProjects,
-  aiExperiments,
-} from "@/data";
+import ProjectPlaceholder from "../components/ProjectPlaceholder";
 
-gsap.registerPlugin(ScrollTrigger);
+interface WorkItem {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  link: string;
+  type: "window" | "phone";
+  accentColor: string;
+  tags: string[];
+  imageSrc?: string;
+}
+
+const selectedWorks: WorkItem[] = [
+  {
+    id: "myopd-zip",
+    title: "MyOPD Zip",
+    category: "Mobile Medical Platform",
+    description: "An offline-first mobile electronic medical record (EMR) and clinic management workflow for doctors.",
+    link: "https://play.google.com/store/apps/details?id=in.myopd.zip",
+    type: "phone",
+    accentColor: "#2563eb",
+    tags: ["Android", "Offline-First", "Healthcare"],
+  },
+  {
+    id: "renault-hmi",
+    title: "Renault Next-Gen Automotive HMI",
+    category: "Automotive HMI & AOSP",
+    description: "Park Assist, EV energy flow, and Drive Assist digital cockpit applications for Android Automotive OS.",
+    link: "https://www.renault.com",
+    type: "window",
+    accentColor: "#f59e0b",
+    tags: ["AOSP", "Automotive", "HMI"],
+  },
+  {
+    id: "myopd-appointments",
+    title: "MyOPD Appointments",
+    category: "Web Telehealth",
+    description: "Frictionless patient appointment booking, real-time schedule syncing, and digital clinic discovery.",
+    link: "https://appointments.myopd.in",
+    type: "window",
+    accentColor: "#10b981",
+    tags: ["React", "Distributed DB", "Payments"],
+  },
+  {
+    id: "android-video-motion",
+    title: "AndroidVideoMotion",
+    category: "Open Source Media Engine",
+    description: "A programmatic video motion graphics and AI-assisted animation library for Android creators.",
+    link: "https://github.com/tejpratap46/AndroidVideoMotion",
+    type: "window",
+    accentColor: "#8b5cf6",
+    tags: ["Kotlin", "Video Processing", "AI"],
+  },
+  {
+    id: "pdf-creator-android",
+    title: "PDFCreator Android",
+    category: "Android Native Toolkit",
+    description: "A zero-dependency native PDF creation, invoice rendering, and document viewing engine.",
+    link: "https://github.com/tejpratap46/PDFCreatorAndroid",
+    type: "phone",
+    accentColor: "#ef4444",
+    tags: ["Kotlin", "Graphics API", "Open Source"],
+  },
+];
 
 export default function SelectedWorks() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    const header = headerRef.current;
-    if (!section || !header) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        header,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 75%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
-
-      cardRefs.current.forEach((card) => {
-        if (!card) return;
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          },
-        );
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
-
-  const addCardRef = (el: HTMLDivElement | null) => {
-    if (el && !cardRefs.current.includes(el)) {
-      cardRefs.current.push(el);
-    }
-  };
-
   return (
-    <section
-      ref={sectionRef}
-      id="projects"
-      className="relative z-10 bg-[#f9f9f9] dark:bg-[#0a0a0a] py-24 sm:py-32 px-5 sm:px-8 transition-colors duration-300"
-    >
-      <div ref={headerRef} className="max-w-6xl mx-auto mb-16 opacity-0">
-        <span className="text-sm tracking-widest uppercase text-black/40 dark:text-white/40 block mb-3 transition-colors duration-300">
-          04. Portfolio
-        </span>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-normal text-black dark:text-white tracking-[-2px] transition-colors duration-300">
-          Selected Projects
+    <section id="work" className="py-14 sm:py-20 page-column">
+      {/* Section Header */}
+      <div className="mb-10 sm:mb-12">
+        <h2 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight">
+          Selected work
         </h2>
       </div>
 
-      <div className="max-w-6xl mx-auto space-y-16">
-        {/* Products */}
-        <div>
-          <h3 className="text-lg font-medium text-black/60 dark:text-white/60 mb-6 flex items-center gap-2 transition-colors duration-300">
-            <Globe className="w-5 h-5" />
-            Products Built
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {productProjects.map((p) => (
+      {/* Selected Work Showcase Stream */}
+      <div className="space-y-14 sm:space-y-16">
+        {selectedWorks.map((work) => (
+          <div key={work.id} className="work-item-slot group">
+            {/* Visual Media Showcase with Mockup */}
+            <a
+              href={work.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="work-item-media block cursor-pointer"
+              title={`View ${work.title}`}
+            >
+              <ProjectPlaceholder
+                title={work.title}
+                category={work.category}
+                type={work.type}
+                accentColor={work.accentColor}
+                tags={work.tags}
+                imageSrc={work.imageSrc}
+              />
+            </a>
+
+            {/* Editorial Copy Link */}
+            <div className="pt-1">
               <a
-                key={p.name}
-                href={p.link}
+                href={work.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group block"
+                className="inline-flex items-baseline gap-1 text-base sm:text-lg text-copy hover:text-ink transition-colors leading-snug group/link"
               >
-                <div
-                  ref={addCardRef}
-                  className="rounded-2xl bg-white dark:bg-white/[0.03] border border-black/5 dark:border-white/5 p-6 hover:border-black/15 dark:hover:border-white/15 hover:shadow-lg transition-all duration-300 opacity-0"
+                <strong className="font-semibold text-ink">
+                  {work.title}
+                </strong>
+                <span className="text-copy-muted font-normal">–</span>
+                <span className="text-copy">
+                  {work.description}
+                </span>
+                <svg
+                  className="inline-block w-4 h-4 ml-1 text-copy-muted group-hover/link:text-ink group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform duration-200 shrink-0 self-center"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <h4 className="text-lg font-medium text-black dark:text-white group-hover:text-[#2d62ff] transition-colors">
-                      {p.name}
-                    </h4>
-                    <ExternalLink className="w-4 h-4 text-black/30 dark:text-white/30 group-hover:text-[#2d62ff] transition-colors" />
-                  </div>
-                  <p className="text-sm text-black/50 dark:text-white/50 mb-4 transition-colors">
-                    {p.description}
-                  </p>
-                  <span
-                    className="inline-block px-3 py-1 rounded-full text-xs font-medium text-white"
-                    style={{ backgroundColor: p.color }}
-                  >
-                    {p.label}
-                  </span>
-                </div>
+                  <path d="M3 13 13 3M6 3h7v7" />
+                </svg>
               </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Open Source */}
-        <div>
-          <h3 className="text-lg font-medium text-black/60 dark:text-white/60 mb-6 flex items-center gap-2 transition-colors duration-300">
-            <Github className="w-5 h-5" />
-            Open Source
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {openSourceProjects.map((p) => (
-              <a
-                key={p.name}
-                href={p.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block"
-              >
-                <div
-                  ref={addCardRef}
-                  className="rounded-2xl bg-white dark:bg-white/[0.03] border border-black/5 dark:border-white/5 p-6 hover:border-black/15 dark:hover:border-white/15 hover:shadow-lg transition-all duration-300 h-full opacity-0"
-                >
-                  <Github className="w-5 h-5 text-black/30 dark:text-white/30 mb-4 group-hover:text-[#2d62ff] transition-colors" />
-                  <h4 className="text-base font-medium text-black dark:text-white mb-2 group-hover:underline decoration-1 underline-offset-4 transition-colors">
-                    {p.name}
-                  </h4>
-                  <p className="text-sm text-black/50 dark:text-white/50 transition-colors">
-                    {p.description}
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Side Projects + AI */}
-        <div className="overflow-x-auto scrollbar-hide -mx-5 px-5 sm:-mx-8 sm:px-8 xl:mx-[calc(50%-50vw)] xl:px-[calc(50vw-50%)]">
-          <div className="flex gap-16 min-w-max">
-            <div className="w-[280px] sm:w-[320px] md:w-[360px] shrink-0">
-              <h3 className="text-lg font-medium text-black/60 dark:text-white/60 mb-6 flex items-center gap-2 transition-colors duration-300">
-                <Wrench className="w-5 h-5" />
-                Side Projects
-              </h3>
-              <div className="grid grid-flow-col grid-rows-4 gap-x-8">
-                {sideProjects.map((p) => (
-                  <a
-                    key={p.name}
-                    href={p.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-start gap-3 py-4 border-b border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 hover:pl-2 transition-all duration-300 w-[280px] sm:w-[320px] md:w-[360px]"
-                  >
-                    {p.icon && (
-                      <p.icon className="w-5 h-5 text-black/35 dark:text-white/35 group-hover:text-[#2d62ff] transition-colors shrink-0 mt-0.5" />
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-black dark:text-white group-hover:text-[#2d62ff] transition-colors">
-                        {p.name}
-                      </p>
-                      <p className="text-sm text-black/50 dark:text-white/50 transition-colors">
-                        {p.description}
-                      </p>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-black/20 dark:text-white/20 group-hover:text-[#2d62ff] transition-colors shrink-0 ml-4 mt-0.5" />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="shrink-0">
-              <h3 className="text-lg font-medium text-black/60 dark:text-white/60 mb-6 flex items-center gap-2 transition-colors duration-300">
-                <Sparkles className="w-5 h-5" />
-                AI Experiments
-              </h3>
-              <div className="grid grid-flow-col grid-rows-4 gap-x-8">
-                {aiExperiments.map((p) => (
-                  <a
-                    key={p.name}
-                    href={p.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-start gap-3 py-4 border-b border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 hover:pl-2 transition-all duration-300 w-[280px] sm:w-[320px] md:w-[360px]"
-                  >
-                    {p.icon && (
-                      <p.icon className="w-5 h-5 text-black/35 dark:text-white/35 group-hover:text-[#2d62ff] transition-colors shrink-0 mt-0.5" />
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-black dark:text-white group-hover:text-[#2d62ff] transition-colors">
-                        {p.name}
-                      </p>
-                      <p className="text-sm text-black/50 dark:text-white/50 transition-colors">
-                        {p.description}
-                      </p>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-black/20 dark:text-white/20 group-hover:text-[#2d62ff] transition-colors shrink-0 ml-4 mt-0.5" />
-                  </a>
-                ))}
-              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
