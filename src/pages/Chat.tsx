@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router";
 import Navigation from "../sections/Navigation";
+import SEO from "../components/SEO";
 
 interface Message {
   role: "user" | "assistant" | "system";
@@ -142,7 +143,6 @@ export default function Chat() {
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
-      let accumulatedText = "";
       let hasReceivedFirstChunk = false;
 
       while (true) {
@@ -175,16 +175,14 @@ export default function Chat() {
                   ...prev,
                   { role: "assistant", content: delta },
                 ]);
-                accumulatedText = delta;
               } else {
-                accumulatedText += delta;
                 setMessages((prev) => {
                   const updated = [...prev];
                   const lastIdx = updated.length - 1;
                   if (lastIdx >= 0 && updated[lastIdx].role === "assistant") {
                     updated[lastIdx] = {
                       ...updated[lastIdx],
-                      content: accumulatedText,
+                      content: updated[lastIdx].content + delta,
                     };
                   }
                   return updated;
@@ -232,6 +230,18 @@ export default function Chat() {
 
   return (
     <div className="min-h-screen bg-page text-ink flex flex-col font-sans">
+      <SEO
+        title="AI Assistant"
+        description="Interact with Tej Pratap Singh's AI assistant to explore his systems engineering background, Renault automotive infotainment, medical SaaS, and side projects."
+        canonical="https://tejpratap.com/chat"
+        keywords={[
+          "Tej Pratap Singh AI",
+          "Tej Pratap Assistant",
+          "Software Engineer AI",
+          "Renault Deputy Manager",
+          "Android Automotive Expert",
+        ]}
+      />
       <Navigation />
 
       <main className="flex-1 flex flex-col page-column w-full pt-24 pb-8">

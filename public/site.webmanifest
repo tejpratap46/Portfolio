@@ -1,0 +1,16 @@
+{
+  "name": "Tej Pratap Singh – Systems & Experiences",
+  "short_name": "Tej Pratap",
+  "description": "Deputy Manager @Renault Group. Systems and product engineer building products that turn complex engineering problems into shipped software.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "icons": [
+    {
+      "src": "/profile.jpg",
+      "sizes": "192x192 512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

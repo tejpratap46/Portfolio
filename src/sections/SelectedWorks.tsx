@@ -1,4 +1,5 @@
 import ProjectPlaceholder from "../components/ProjectPlaceholder";
+import Underline from "@/components/ui/Underline";
 
 interface WorkItem {
   id: string;
@@ -105,9 +106,14 @@ export default function SelectedWorks() {
                 rel="noopener noreferrer"
                 className="inline-flex items-baseline gap-1 text-base sm:text-lg text-copy hover:text-ink transition-colors leading-snug group/link"
               >
-                <strong className="font-semibold text-ink">
+                <Underline
+                  as="span"
+                  variant="dual"
+                  thickness={1.5}
+                  className="font-semibold text-ink"
+                >
                   {work.title}
-                </strong>
+                </Underline>
                 <span className="text-copy-muted font-normal">–</span>
                 <span className="text-copy">
                   {work.description}

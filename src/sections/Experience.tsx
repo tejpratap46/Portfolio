@@ -1,5 +1,6 @@
 import { experiences } from "@/data";
 import { ArrowUpRight } from "lucide-react";
+import Underline from "@/components/ui/Underline";
 
 export default function Experience() {
   return (
@@ -28,15 +29,18 @@ export default function Experience() {
                   {exp.role}
                 </h3>
                 <span className="text-copy-muted text-sm">at</span>
-                <a
+                <Underline
+                  as="a"
                   href={exp.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="editorial-link font-medium text-sm sm:text-base inline-flex items-center gap-0.5"
+                  variant="dual"
+                  thickness={1.5}
+                  className="font-medium text-sm sm:text-base inline-flex items-center gap-0.5 text-ink hover:text-ink"
                 >
                   <span>{exp.company}</span>
                   <ArrowUpRight className="w-3 h-3 text-copy-muted" />
-                </a>
+                </Underline>
               </div>
 
               <div className="font-mono text-xs text-copy-muted shrink-0">

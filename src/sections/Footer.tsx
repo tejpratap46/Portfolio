@@ -15,7 +15,7 @@ export default function Footer() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-copy hover:text-ink transition-colors inline-flex items-center gap-0.5"
+              className="editorial-link text-copy hover:text-ink inline-flex items-center gap-0.5"
             >
               <span>{link.label}</span>
               <ArrowUpRight className="w-3 h-3 text-copy-muted" />
@@ -25,7 +25,7 @@ export default function Footer() {
             href={profile.resumeLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-copy hover:text-ink transition-colors inline-flex items-center gap-0.5"
+            className="editorial-link text-copy hover:text-ink inline-flex items-center gap-0.5"
           >
             <span>Resume (PDF)</span>
             <ArrowUpRight className="w-3 h-3 text-copy-muted" />

@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tejpratap.com/sitemap.xml
+# Host
+Host: https://tejpratapsingh.com
+
+# Sitemaps
+Sitemap: https://tejpratapsingh.com/sitemap.xml
+

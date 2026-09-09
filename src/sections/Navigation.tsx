@@ -14,7 +14,7 @@ const navLinks = [
   { href: "/#side-projects", label: "Side projects" },
   { href: "/#experience", label: "Experience" },
   { href: "/#stack", label: "Stack" },
-  { href: "/chat", label: "AI Chat" },
+  { href: "/chat", label: "Chat/Bot" },
 ];
 
 export default function Navigation() {
@@ -60,10 +60,11 @@ export default function Navigation() {
         {/* Logo / Name */}
         <Link
           to="/"
-          className="text-sm font-semibold tracking-tight text-ink hover:opacity-80 transition-opacity flex items-center gap-2"
+          aria-label="Tej Pratap Singh – Home"
+          className="text-2xl font-semibold tracking-tight text-ink hover:opacity-80 transition-opacity flex items-center gap-2"
         >
           <span className="w-2 h-2 rounded-full bg-ink inline-block" />
-          <span>Tej Pratap Singh</span>
+          {/* <span>Tej Pratap Singh</span> */}
         </Link>
 
         {/* Desktop Navigation */}

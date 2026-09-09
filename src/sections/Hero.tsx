@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { profile } from "@/data";
 import { Mail, Check, ArrowUpRight, FileText } from "lucide-react";
+import Underline from "@/components/ui/Underline";
 
 export default function Hero() {
   const [copied, setCopied] = useState(false);
@@ -20,14 +21,37 @@ export default function Hero() {
     >
       <div className="space-y-6">
         {/* Main Editorial Headline */}
-        <h1 className="text-2xl sm:text-3xl md:text-[2.25rem] font-medium leading-[1.3] text-ink tracking-tight">
+        <h1 className="text-2xl sm:text-3xl md:text-[2.25rem] font-medium leading-[1.4] text-ink tracking-tight">
           Hi, I'm Tej Pratap Singh – a{" "}
-          <a
+          <Underline
+            as="a"
             href="#experience"
-            className="editorial-link font-semibold"
+            variant="sketch"
+            curveVariant={1}
+            color="var(--underline-systems)"
+            trackColor="var(--underline-systems-track)"
+            thickness={2.5}
+            alwaysActive={true}
+            className="font-semibold text-ink"
+            containerClassName="font-semibold cursor-pointer"
           >
-            Systems &amp; Product Engineer.
-          </a>{" "}
+            Systems
+          </Underline>
+          {" "}&amp;{" "}
+          <Underline
+            as="a"
+            href="#experience"
+            variant="sketch"
+            curveVariant={2}
+            color="var(--underline-product)"
+            trackColor="var(--underline-product-track)"
+            thickness={2.5}
+            alwaysActive={true}
+            className="font-semibold text-ink"
+            containerClassName="font-semibold cursor-pointer"
+          >
+            Product Engineer.
+          </Underline>{" "}
           I turn complex engineering problems into shipped software.
         </h1>
 
