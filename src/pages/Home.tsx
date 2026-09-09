@@ -1,77 +1,25 @@
-import { useEffect, useRef } from "react";
-import { useLocation } from "react-router";
-import Lenis from "lenis";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 import SEO from "../components/SEO";
-import LivingGradientMesh from "../sections/LivingGradientMesh";
 import Navigation from "../sections/Navigation";
 import Hero from "../sections/Hero";
-import Mission from "../sections/Mission";
-import Experience from "../sections/Experience";
 import SelectedWorks from "../sections/SelectedWorks";
+import SideProjects from "../sections/SideProjects";
+import Experience from "../sections/Experience";
 import TechStack from "../sections/TechStack";
-import Contact from "../sections/Contact";
-
-gsap.registerPlugin(ScrollTrigger);
+import Footer from "../sections/Footer";
 
 export default function Home() {
-  const lenisRef = useRef<Lenis | null>(null);
-  const location = useLocation();
-
-  useEffect(() => {
-    // Initialize Lenis smooth scroll
-    lenisRef.current = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-    });
-
-    // Expose lenis instance globally for navigation
-    (window as any).lenis = lenisRef.current;
-
-    // Connect Lenis to GSAP ScrollTrigger
-    lenisRef.current.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenisRef.current?.raf(time * 1000);
-    });
-
-    gsap.ticker.lagSmoothing(0);
-
-    // Handle scroll to hash on mount
-    if (location.hash) {
-      setTimeout(() => {
-        lenisRef.current?.scrollTo(location.hash, { immediate: true });
-      }, 100);
-    }
-
-    return () => {
-      lenisRef.current?.destroy();
-      gsap.ticker.remove((time) => {
-        lenisRef.current?.raf(time * 1000);
-      });
-    };
-  }, []);
-
   return (
     <>
       <SEO />
-      {/* WebGL Background - fixed behind everything */}
-      <LivingGradientMesh />
-
-      {/* Navigation */}
       <Navigation />
-
-      {/* Main Content */}
-      <main className="relative">
+      <main className="min-h-screen bg-page">
         <Hero />
-        <Mission />
-        <Experience />
         <SelectedWorks />
+        <SideProjects />
+        <Experience />
         <TechStack />
-        <Contact />
       </main>
+      <Footer />
     </>
   );
 }
