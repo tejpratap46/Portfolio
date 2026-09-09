@@ -21,8 +21,34 @@ export default function ProjectPlaceholder({
   mockupSnippet,
 }: ProjectPlaceholderProps) {
   if (imageSrc) {
+    if (type === "phone") {
+      return (
+        <div className="relative w-full aspect-[16/10] sm:aspect-[16/9.5] bg-[var(--card-surface)] border-b border-line flex items-center justify-center p-4 sm:p-6 overflow-hidden group">
+          <div className="w-[190px] sm:w-[220px] aspect-[9/16] rounded-[24px] border-[2px] border-line bg-page shadow-md flex flex-col overflow-hidden relative">
+            <div className="h-4 bg-page flex items-center justify-center pt-1 shrink-0">
+              <div className="w-12 h-2.5 rounded-full bg-line" />
+            </div>
+            <div className="flex-1 overflow-hidden relative">
+              <img
+                src={imageSrc}
+                alt={title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
+              />
+            </div>
+            <div className="h-3 flex items-center justify-center pb-1 shrink-0">
+              <div className="w-10 h-0.5 rounded-full bg-line" />
+            </div>
+          </div>
+          <div className="absolute right-6 top-6 hidden sm:block text-right">
+            <span className="text-xs font-mono uppercase tracking-widest text-copy-muted block">{category}</span>
+            <span className="text-xs text-ink font-semibold">{title}</span>
+          </div>
+        </div>
+      );
+    }
     return (
-      <div className="relative w-full h-full aspect-[16/10] overflow-hidden bg-[var(--card-surface)]">
+      <div className="relative w-full aspect-[16/10] sm:aspect-[16/9.5] overflow-hidden bg-[var(--card-surface)]">
         <img
           src={imageSrc}
           alt={title}
