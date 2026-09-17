@@ -26,7 +26,7 @@ export const productProjects = [
   {
     name: "MyOPD Zip",
     description: "Power of MyOPD desktop suite compressed for mobile.",
-    link: "https://play.google.com/store/apps/details?id=in.myopd.zip",
+    link: "https://play.google.com/store/apps/details?id=in.myopd.android",
     label: "Play Store",
     color: "#2d62ff",
   },
@@ -91,6 +91,12 @@ export const sideProjects: ProjectItem[] = [
 
 export const aiExperiments: ProjectItem[] = [
   {
+    name: "Log Viewer",
+    description: "View logs without leaving your device.",
+    link: "https://log.tejpratapsingh.com",
+    icon: Terminal,
+  },
+  {
     name: "Video Analyser",
     description: "Offline video analysis in browser.",
     link: "https://video.tejpratapsingh.com",
@@ -125,12 +131,6 @@ export const aiExperiments: ProjectItem[] = [
     description: "View JSON in mac os finder",
     link: "https://json.tejpratapsingh.com",
     icon: Braces,
-  },
-  {
-    name: "Log Viewer",
-    description: "View logs without leaving your device.",
-    link: "https://log.tejpratapsingh.com",
-    icon: Terminal,
   },
   {
     name: "Loan Calculator",
