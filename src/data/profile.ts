@@ -13,5 +13,5 @@ export const profile = {
       "From next-gen automotive infotainment to offline-first medical EMRs. Building products that solve real problems at scale.",
   },
   resumeLink:
-    "https://docs.google.com/document/d/1A-dKNJR3OFDE1VyCmk98EFdQjCJllHk7IPDs-AhLhWU/export?format=pdf",
+    "https://docs.google.com/document/d/1kDlkBn6KNPma9-E-9e-YL5ozSpagaQ6fupA42aEKKNs/export?format=pdf",
 };
